@@ -1,0 +1,544 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>BMC Sauciety — Catalog</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300;400;700&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --cream:#FAF3E0;
+      --red:#D62828;
+      --olive:#5A5C3A;
+      --gold:#E6C77E;
+      --muted:#7A6F66;
+      --card-shadow:0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background:linear-gradient(180deg,var(--cream),#fff);
+      color:#2b2b2b;
+    }
+
+    /* HEADER */
+    header{
+      background:linear-gradient(90deg, var(--red), var(--olive));
+      color:var(--cream);
+      padding:14px 24px;
+      position:sticky;
+      top:0;
+      z-index:40;
+      box-shadow:0 4px 15px rgba(0,0,0,0.15);
+    }
+    .container{max-width:1100px;margin:0 auto;padding:0 20px}
+    .nav{display:flex;align-items:center;justify-content:space-between}
+
+    /* BRAND / LOGO */
+    .brand{display:flex;align-items:center;gap:10px}
+    .brand .logo{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+    }
+    .brand .logo img{
+      height:42px;               /* <-- Tinggi logo diperbesar */
+      width:auto;
+      object-fit:contain;
+      transition:transform 0.25s ease, filter 0.25s ease;
+      filter:drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+    }
+    .brand .logo img:hover{
+      transform:scale(1.05);
+      filter:drop-shadow(0 3px 6px rgba(0,0,0,0.3));
+    }
+
+    nav ul{display:flex;gap:18px;list-style:none;align-items:center}
+    nav a{
+      color:rgba(255,255,255,0.95);
+      text-decoration:none;
+      font-weight:600;
+      transition:0.2s;
+    }
+    nav a:hover{color:var(--gold)}
+    .mobile-toggle{display:none;background:none;border:none;color:white;font-size:26px;cursor:pointer}
+
+    /* HERO */
+    .hero{
+      padding:48px 0 32px;
+      display:grid;
+      grid-template-columns:1fr 420px;
+      gap:28px;
+      align-items:center;
+    }
+    .eyebrow{
+      display:inline-block;
+      padding:6px 10px;
+      border-radius:999px;
+      background:rgba(214,40,40,0.1);
+      color:var(--red);
+      font-weight:700;
+      font-family:Merriweather;
+      letter-spacing:0.6px;
+    }
+    .title{
+      font-family:Merriweather;
+      font-size:40px;
+      margin:18px 0 8px;
+      color:var(--olive);
+    }
+    .desc{color:var(--muted);font-size:16px;line-height:1.6}
+    .cta-row{margin-top:18px;display:flex;gap:12px}
+    .btn{
+      display:inline-flex;
+      align-items:center;
+      gap:10px;
+      padding:10px 16px;
+      border-radius:10px;
+      text-decoration:none;
+      font-weight:600;
+      transition:0.25s;
+    }
+    .btn-primary{background:var(--red);color:var(--cream)}
+    .btn-primary:hover{background:#b32020}
+    .btn-outline{
+      background:transparent;
+      border:2px solid var(--red);
+      color:var(--red);
+    }
+    .btn-outline:hover{background:var(--red);color:var(--cream)}
+
+    .hero-card{
+      background:linear-gradient(180deg,rgba(255,255,255,0.85),rgba(246,239,230,0.92));
+      padding:18px;
+      border-radius:14px;
+      box-shadow:var(--card-shadow);
+    }
+    .hero-card img{width:100%;border-radius:10px;height:260px;object-fit:cover}
+
+    /* CATALOG */
+    .section{padding:18px 0 70px}
+    .section h2{font-family:Merriweather;font-size:22px;margin:0 0 12px;color:var(--olive)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    .card{
+      background:#fff;
+      border-radius:12px;
+      padding:16px;
+      box-shadow:var(--card-shadow);
+      display:flex;
+      flex-direction:column;
+    }
+    .card .img{height:180px;border-radius:8px;overflow:hidden;background:linear-gradient(135deg,#f4e7e5,#fff)}
+    .card img{width:100%;height:100%;object-fit:cover}
+    .card .meta{padding-top:12px;flex:1}
+    .card h3{margin:0;font-family:Merriweather;font-size:18px;color:var(--olive)}
+    .price{margin-top:8px;font-weight:700;color:var(--red)}
+    .card p{margin:10px 0 0;color:var(--muted);font-size:14px}
+    .card .actions{margin-top:14px;display:flex;gap:10px}
+    .wh-btn{
+      flex:1;
+      display:inline-flex;
+      justify-content:center;
+      align-items:center;
+      gap:8px;
+      padding:10px;
+      border-radius:8px;
+      text-decoration:none;
+      border:2px solid rgba(34,139,34,0.15);
+      font-weight:700;
+      color:#2b2b2b;
+      transition:0.25s;
+    }
+    .wh-btn:hover{background:#25D366;color:white}
+    .wh-btn .dot{width:10px;height:10px;border-radius:50%;background:#25D366}
+
+    /* FOOTER */
+    footer{
+      padding:26px 0;
+      background:var(--olive);
+      color:var(--cream);
+    }
+    .footer-inner{display:flex;justify-content:space-between;gap:20px;align-items:center}
+    .footer-inner div:last-child{font-size:14px;opacity:0.85}
+
+    /* RESPONSIVE */
+    @media(max-width:980px){
+      .hero{grid-template-columns:1fr}
+      .grid{grid-template-columns:repeat(2,1fr)}
+      nav ul{display:none}
+      .mobile-toggle{display:block}
+      .brand .logo img{height:36px;}
+    }
+    @media(max-width:600px){
+      .grid{grid-template-columns:1fr}
+      .title{font-size:28px}
+      .hero-card img{height:180px}
+      .brand .logo img{height:32px;}
+    }
+       /* Social Feed */
+    #social-feed{
+      padding:60px 0;
+      background:#fffaf3;
+    }
+    #social-feed h2{
+      text-align:center;
+      font-family:Merriweather;
+      font-size:26px;
+      margin-bottom:24px;
+      color:var(--olive);
+    }
+    .social-grid{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:20px;
+      justify-items:center;
+    }
+    .social-grid iframe{
+      border:none;
+      border-radius:12px;
+      box-shadow:var(--card-shadow);
+      width:100%;
+      max-width:340px;
+      height:480px;
+      background:#fff;
+    }
+
+    /* 🔹 Tampilan popup */
+.modal {
+  display: none;
+  position: fixed;
+  z-index: 999;
+  inset: 0;
+  background: rgba(0,0,0,0.4);
+  backdrop-filter: blur(6px);
+  justify-content: center;
+  align-items: center;
+  animation: fadeIn 0.3s ease;
+}
+@keyframes fadeIn { from {opacity:0;} to {opacity:1;} }
+
+.modal-content {
+  background: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  width: 90%;
+  max-width: 350px;
+  text-align: center;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.2);
+  animation: popUp 0.3s ease;
+}
+@keyframes popUp { from {transform: scale(0.9); opacity: 0;} to {transform: scale(1); opacity: 1;} }
+
+.modal-content h3 {
+  margin-bottom: 15px;
+  color: #333;
+}
+
+.modal-content input {
+  width: 60%;
+  padding: 8px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 16px;
+  text-align: center;
+  outline: none;
+  transition: 0.3s;
+}
+.modal-content input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0,123,255,0.5);
+}
+
+.modal-actions {
+  margin-top: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.modal-actions button {
+  flex: 1;
+  margin: 0 5px;
+  padding: 10px;
+  border-radius: 8px;
+  border: none;
+  font-size: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+#cancelBtn {
+  background: #ccc;
+  color: #333;
+}
+#cancelBtn:hover {
+  background: #bbb;
+}
+
+#confirmBtn {
+  background: #007bff;
+  color: #fff;
+}
+#confirmBtn:hover {
+  background: #0056b3;
+}
+    
+  </style>
+</head>
+
+<body>
+
+  <!-- HEADER -->
+  <header>
+    <div class="container nav">
+      <div class="brand">
+        <div class="logo">
+          <img src="../Sauciety/assets/Sublogo.png" alt="Logo Sauciety">
+        </div>
+      </div>
+
+      <nav>
+        <button class="mobile-toggle" onclick="toggleMenu()">☰</button>
+        <ul id="navlist">
+          <li><a href="#catalog">Menu</a></li>
+          <li><a href="#social-feed">Postingan</a></li>
+          <li><a href="#about">Tentang</a></li>
+          <li><a href="#contact">Kontak</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- MAIN -->
+  <main class="container">
+    <section class="hero">
+      <div class="lead">
+        <span class="eyebrow">Signature</span>
+        <h2 class="title">Saus & Spageti — Cita Rasa yang Mengikat</h2>
+        <p class="desc">Katalog BMC Sauciety menampilkan menu spageti favorit dengan saus istimewa. Desain ini menggabungkan estetika modern klasik untuk menonjolkan identitas rasa dan kualitas.</p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#catalog">Lihat Menu</a>
+          <a class="btn btn-outline" href="#contact">Hubungi Kami</a>
+        </div>
+      </div>
+
+      <aside class="hero-card">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi1AOBmr03aBdG6237ceIxG5kNE87ekMIr-g&s" alt="Signature dish" />
+        <div style="padding-top:12px;display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:800;color:var(--red);">Spageti Ayam Lada Hitam</div>
+            <div style="font-size:13px;color:var(--muted)">Signature Menu — Pedas & Kaya Rasa</div>
+          </div>
+          <div style="font-weight:700;color:var(--olive)">IDR 32.000</div>
+        </div>
+      </aside>
+    </section>
+
+    <!-- CATALOG -->
+    <section id="catalog" class="section">
+      <h2>Menu Kami</h2>
+      <div class="grid" id="productGrid">
+        <!-- Card 1 -->
+        <article class="card">
+          <div class="img"><img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRi1AOBmr03aBdG6237ceIxG5kNE87ekMIr-g&s" alt="Spageti Ayam Lada Hitam"></div>
+          <div class="meta">
+            <h3>Spageti Ayam Lada Hitam <span style="font-size:12px;color:var(--muted);font-weight:600">(Signature)</span></h3>
+            <div class="price">IDR 32.000</div>
+            <p>Spageti al dente dengan saus lada hitam homemade dan irisan ayam panggang.</p>
+          </div>
+          <div class="actions">
+            <a class="wh-btn" href="#" data-name="Spageti Ayam Lada Hitam" onclick="contactWhatsApp(event)"><span class="dot"></span>Hubungi via WhatsApp</a>
+            <a class="wh-btn" href="#" onclick="quickOrder(event, 'Spageti Ayam Lada Hitam')">Pesan Cepat</a>
+          </div>
+        </article>
+
+        <!-- Card 2 -->
+        <article class="card">
+          <div class="img"><img src="https://awsimages.detik.net.id/community/media/visual/2023/02/01/respe-spaghetti-saus-ayam-dan-jamur_43.jpeg?w=1200" alt="Spageti Carbonara Ayam"></div>
+          <div class="meta">
+            <h3>Spageti Carbonara Ayam</h3>
+            <div class="price">IDR 30.000</div>
+            <p>Krim lembut, keju parmesan, dan irisan ayam untuk rasa yang lembut dan memuaskan.</p>
+          </div>
+          <div class="actions">
+            <a class="wh-btn" href="#" data-name="Spageti Carbonara Ayam" onclick="contactWhatsApp(event)"><span class="dot"></span>Hubungi via WhatsApp</a>
+            <a class="wh-btn" href="#" onclick="quickOrder(event, 'Spageti Carbonara Ayam')">Pesan Cepat</a>
+          </div>
+        </article>
+
+        <!-- Card 3 -->
+        <article class="card">
+          <div class="img"><img src="https://www.dapurkobe.co.id/wp-content/uploads/spaghetti-poll-pedas.jpg" alt="Spageti Ayam Pedas Manis"></div>
+          <div class="meta">
+            <h3>Spageti Ayam Pedas Manis</h3>
+            <div class="price">IDR 28.000</div>
+            <p>Perpaduan saus pedas manis yang seimbang, cocok untuk yang suka rasa bold.</p>
+          </div>
+          <div class="actions">
+            <a class="wh-btn" href="#" data-name="Spageti Ayam Pedas Manis" onclick="contactWhatsApp(event)"><span class="dot"></span>Hubungi via WhatsApp</a>
+            <a class="wh-btn" href="#" onclick="quickOrder(event, 'Spageti Ayam Pedas Manis')">Pesan Cepat</a>
+          </div>
+        </article>
+
+        <!-- Card 4 -->
+        <article class="card">
+          <div class="img"><img src="../Sauciety/assets/Paket_murah.png" alt="Paket Hemat"></div>
+          <div class="meta">
+            <h3>Paket Hemat (Spageti + Minuman)</h3>
+            <div class="price">IDR 35.000</div>
+            <p>Pilihan paket hemat yang pas untuk makan siang atau santai bersama teman.</p>
+          </div>
+          <div class="actions">
+            <a class="wh-btn" href="#" data-name="Paket Hemat (Spageti + Minuman)" onclick="contactWhatsApp(event)"><span class="dot"></span>Hubungi via WhatsApp</a>
+            <a class="wh-btn" href="#" onclick="quickOrder(event, 'Paket Hemat (Spageti + Minuman)')">Pesan Cepat</a>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- Popup Modal -->
+<div id="orderModal" class="modal">
+  <div class="modal-content">
+    <h3 id="modalTitle"></h3>
+    <input type="number" id="orderQty" min="1" value="1">
+    <div class="modal-actions">
+      <button id="cancelBtn">Batal</button>
+      <button id="confirmBtn">Pesan Sekarang</button>
+    </div>
+  </div>
+</div>
+
+      <!-- 🔥 Sosial Media Section -->
+    <section id="social-feed">
+      <h2>Sosial Media Kami</h2>
+      <div class="social-grid">
+
+        <!-- Instagram Embed -->
+        <iframe src="https://www.instagram.com/p/DQLuGRAiSNH/embed" allowtransparency="true"></iframe>
+        <iframe src="https://www.instagram.com/p/DPzs9KqEqw8/embed" allowtransparency="true"></iframe>
+        <iframe src="https://www.instagram.com/p/DQMBO5uEq3n/embed" allowtransparency="true"></iframe>
+
+        <!-- TikTok Embed -->
+        <iframe src="https://www.tiktok.com/embed/7562809704699759880?_r=1&_t=ZS-90oWKSVpQ3O/?lang=id-ID" allowfullscreen></iframe>
+        <iframe src="https://www.tiktok.com/embed/7431616250855378181/?lang=id-ID" allowfullscreen></iframe>
+        <iframe src="https://www.tiktok.com/embed/7556569999637237048?_r=1&_t=ZS-90oVJcGtkhe/?lang=id-ID" allowfullscreen></iframe>
+      </div>
+    </section>
+
+    
+ <section id="about" class="section">
+  <h2>Tentang BMC Sauciety</h2>
+  <p style="color:var(--muted);max-width:850px">
+    BMC Sauciety adalah merek kuliner yang lahir dari kecintaan terhadap rasa dan kualitas. Kami berkomitmen menghadirkan pengalaman makan yang autentik melalui spageti dengan saus racikan khas — dibuat dari bahan pilihan, bumbu segar, dan proses yang menjaga cita rasa alami. Setiap menu kami dikurasi dengan perhatian pada detail, agar setiap suapan mampu menghadirkan keseimbangan antara tekstur, aroma, dan rasa.
+  </p>
+
+  <p style="color:var(--muted);max-width:850px;margin-top:16px;">
+    Mengusung filosofi <strong>“Where Flavor Meets People”</strong>, BMC Sauciety tidak sekadar menyajikan makanan, tetapi menciptakan ruang di mana rasa menjadi jembatan kebersamaan. Kami percaya bahwa makanan yang lezat mampu menyatukan orang dari berbagai latar belakang — membangun momen hangat, percakapan yang bermakna, dan kenangan yang tak terlupakan.
+  </p>
+
+  <p style="color:var(--muted);max-width:850px;margin-top:16px;">
+    Dengan semangat inovasi dan dedikasi terhadap keaslian rasa, kami terus mengembangkan varian saus dan menu spageti yang menggugah selera, tanpa meninggalkan nilai tradisi. Baik untuk dinikmati sendiri maupun bersama orang terkasih, setiap sajian dari BMC Sauciety dirancang untuk memberikan pengalaman kuliner yang premium, hangat, dan penuh karakter.
+  </p>
+</section>
+
+
+
+    <section id="contact" class="section">
+  <h2>Kontak & Lokasi</h2>
+  <p style="color:var(--muted)">Untuk pemesanan & pertanyaan, hubungi kami melalui WhatsApp atau media sosial berikut:</p>
+  
+  <div style="margin-top:16px; display:flex; gap:12px; flex-wrap:wrap; align-items:center;">
+    <!-- Tombol WhatsApp -->
+    <a class="btn btn-primary" href="#" onclick="openWhatsAppMessage('Halo! Saya mau tanya tentang menu.')">
+      <img src="https://cdn-icons-png.flaticon.com/512/733/733585.png" 
+           alt="WhatsApp" 
+           style="width:20px;height:20px;vertical-align:middle;">
+      Chat Admin
+    </a>
+
+    <!-- Tombol Email -->
+    <a class="btn btn-outline" href="mailto:spaghettisauciety@gmail.com">
+      <img src="https://cdn-icons-png.flaticon.com/512/561/561127.png" 
+           alt="Email" 
+           style="width:20px;height:20px;vertical-align:middle;">
+      Email Kami
+    </a>
+
+    <!-- Tombol Instagram -->
+    <a class="btn btn-outline" href="https://www.instagram.com/sauciety.sos" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn-icons-png.flaticon.com/512/2111/2111463.png" 
+           alt="Instagram" 
+           style="width:20px;height:20px;vertical-align:middle;">
+      Instagram
+    </a>
+
+    <!-- Tombol TikTok -->
+    <a class="btn btn-outline" href="https://www.tiktok.com/@spaghettisauciety" target="_blank" rel="noopener noreferrer">
+      <img src="https://cdn-icons-png.flaticon.com/512/3046/3046122.png" 
+           alt="TikTok" 
+           style="width:20px;height:20px;vertical-align:middle;">
+      TikTok
+    </a>
+  </div>
+</section>
+</main>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container footer-inner">
+      <div>© <strong>BMC Sauciety</strong> — All rights reserved.</div>
+    </div>
+  </footer>
+
+  <script>
+    const WA_PHONE = '6281929022930'; // Ganti dengan nomor WA Anda
+
+    function toggleMenu(){
+      const nav = document.getElementById('navlist');
+      if(nav.style.display === 'flex'){nav.style.display='none'}else{nav.style.display='flex'}
+    }
+
+    function contactWhatsApp(e){
+      e.preventDefault();
+      const name = e.currentTarget.getAttribute('data-name') || 'Pemesanan';
+      const text = encodeURIComponent(`Halo Sauciety! Saya mau pesan: ${name}. Mohon info ketersediaan & cara pemesanan.`);
+      window.open(`https://wa.me/${WA_PHONE}?text=${text}`, '_blank');
+    }
+
+        function quickOrder(e, name){
+      e.preventDefault();
+      currentProduct = name;
+      document.getElementById('modalTitle').innerText = `Pesan "${name}"`;
+      document.getElementById('orderQty').value = 1;
+      document.getElementById('orderModal').style.display = 'flex';
+    }
+
+    // Tutup modal
+    document.getElementById('cancelBtn').onclick = function(){
+      document.getElementById('orderModal').style.display = 'none';
+    };
+
+    // Konfirmasi dan kirim pesan WhatsApp
+    document.getElementById('confirmBtn').onclick = function(){
+      const qty = document.getElementById('orderQty').value;
+      const text = encodeURIComponent(`Halo! Saya ingin pesan ${qty} x ${currentProduct}. Mohon konfirmasi harga & pengiriman.`);
+      window.open(`https://wa.me/${WA_PHONE}?text=${text}`, '_blank');
+      document.getElementById('orderModal').style.display = 'none';
+    };
+
+    // Klik di luar modal untuk menutup
+    window.onclick = function(e){
+      const modal = document.getElementById('orderModal');
+      if(e.target === modal) modal.style.display = 'none';
+    };
+
+    function openWhatsAppMessage(custom){
+      const text = encodeURIComponent(custom);
+      window.open(`https://wa.me/${WA_PHONE}?text=${text}`, '_blank');
+    }
+  </script>
+</body>
+</html>
